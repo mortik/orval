@@ -4,6 +4,7 @@ import {
   GeneratorOptions,
   GeneratorVerbOptions,
   NormalizedOverrideOutput,
+  NormalizedQueryOptions,
 } from '@orval/core';
 
 describe('throws when trying to use named parameters with vue-query client', () => {

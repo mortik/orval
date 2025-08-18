@@ -62,4 +62,41 @@ describe('normalizeQueryOptions', () => {
     const result = normalizeQueryOptions({}, '/workspace');
     expect(result.useOperationIdAsQueryKey).toBeUndefined();
   });
+
+  it('should normalize all query options including useOperationIdAsQueryKey', () => {
+    const queryOptions = {
+      useQuery: true,
+      useMutation: false,
+      useInfinite: true,
+      useOperationIdAsQueryKey: true,
+      shouldExportQueryKey: true
+    };
+    
+    const result = normalizeQueryOptions(queryOptions, '/workspace');
+    
+    expect(result).toEqual({
+      useQuery: true,
+      useInfinite: true,
+      useOperationIdAsQueryKey: true,
+      shouldExportQueryKey: true
+    });
+  });
+
+  it('should handle complex configuration with multiple options', () => {
+    const queryOptions = {
+      useQuery: true,
+      useInfinite: true,
+      useOperationIdAsQueryKey: true,
+      shouldExportQueryKey: true,
+      signal: true
+    };
+    
+    const result = normalizeQueryOptions(queryOptions, '/workspace');
+    
+    expect(result.useOperationIdAsQueryKey).toBe(true);
+    expect(result.useQuery).toBe(true);
+    expect(result.useInfinite).toBe(true);
+    expect(result.shouldExportQueryKey).toBe(true);
+    expect(result.signal).toBe(true);
+  });
 });
